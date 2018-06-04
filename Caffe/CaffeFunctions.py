@@ -3,6 +3,9 @@ import os
 import numpy as np
 import caffe
 
+# Add your model here
+models=['VGG16','VGG19','AlexNet','CaffeNet','GoogleNet','VGG16Kvasir']
+
 ######## METHODS FOR LOAD MODELS ########
 
 # Generic method to laod models from name

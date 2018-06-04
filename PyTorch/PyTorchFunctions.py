@@ -8,6 +8,11 @@ from torchvision import transforms
 from torch.autograd import Variable
 import torchvision.models as models
 
+# Add your model here
+models=['VGG11','VGG13','VGG16','VGG19','AlexNet','DenseNet121','DenseNet161','DenseNet169','DenseNet201','InceptionV3',
+        'ResNet18','ResNet34','ResNet50','ResNet101','ResNet152','SqueezeNet10','SqueezeNet11']
+
+
 
 ######## METHODS FOR LOAD MODELS ########
 

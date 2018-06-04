@@ -20,6 +20,10 @@ import inspect
 import os
 import numpy as np
 
+# Add your model here
+models=['VGG16','VGG19','ResNet','InceptionV3','MobileNet','Xception']
+
+
 ######## METHODS FOR LOAD MODELS ########
 def vgg16kerasload():
     return VGG16()

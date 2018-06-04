@@ -4,6 +4,11 @@ import numpy as np
 import mxnet as mx
 from PIL import Image
 
+# Add your model here
+models=['VGG16','VGG19','CaffeNet','InceptionV3','NiN', 'ResidualNet152', 'ResNet101', 'SqueezeNet']
+
+
+
 ######## METHODS FOR LOAD MODELS ########
 
 # Generic method to laod models from name
