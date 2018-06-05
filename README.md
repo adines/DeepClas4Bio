@@ -56,18 +56,21 @@ Using the command line you have to execute the following command in the root fol
 
 - List available frameworks.
 
-
+````
     python listFrameworks.py
+````
 
 - List available models in a framework.
 
-
+````
     python listModels.py - f NameOfTheFramework
+````
 
 - Classify an image.
 
-
+````
     python predict.py -i pathToTheImage - f NameOfTheFramework -m NameOfTheModel
+````
 
 ### Web API
 This API could be used from a web API as presented in the server file of this project. In this file you can see
