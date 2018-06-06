@@ -13,7 +13,7 @@ def listFrameworks():
     dirs=os.listdir(path=path)
 
     for d in dirs:
-        if "." not in d and not d.startswith("__"):
+        if "." not in d and not d.startswith("__") and not d.startswith("temp"):
             frameworks.append(d)
     return frameworks
 

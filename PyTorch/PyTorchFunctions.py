@@ -6,7 +6,7 @@ from PIL import Image
 import importlib
 from torchvision import transforms
 from torch.autograd import Variable
-import torchvision.models as models
+import torchvision.models as torchmodels
 
 # Add your model here
 models=['VGG11','VGG13','VGG16','VGG19','AlexNet','DenseNet121','DenseNet161','DenseNet169','DenseNet201','InceptionV3',
@@ -37,55 +37,55 @@ def loadModel(modelName):
 
 
 def vgg11pytorchload():
-    return models.vgg11(pretrained=True)
+    return torchmodels.vgg11(pretrained=True)
 
 def vgg13pytorchload():
-    return models.vgg13(pretrained=True)
+    return torchmodels.vgg13(pretrained=True)
 
 def vgg16pytorchload():
-    return models.vgg16(pretrained=True)
+    return torchmodels.vgg16(pretrained=True)
 
 def vgg19pytorchload():
-    return models.vgg19(pretrained=True)
+    return torchmodels.vgg19(pretrained=True)
 
 def alexnetpytorchload():
-    return models.alexnet(pretrained=True)
+    return torchmodels.alexnet(pretrained=True)
 
 def densenet121pytorchload():
-    return models.densenet121(pretrained=True)
+    return torchmodels.densenet121(pretrained=True)
 
 def densenet161pytorchload():
-    return models.densenet161(pretrained=True)
+    return torchmodels.densenet161(pretrained=True)
 
 def densenet169pytorchload():
-    return models.densenet169(pretrained=True)
+    return torchmodels.densenet169(pretrained=True)
 
 def densenet201pytorchload():
-    return models.densenet201(pretrained=True)
+    return torchmodels.densenet201(pretrained=True)
 
 def inceptionv3pytorchload():
-    return models.inception_v3(pretrained=True)
+    return torchmodels.inception_v3(pretrained=True)
 
 def resnet18pytorchload():
-    return models.resnet18(pretrained=True)
+    return torchmodels.resnet18(pretrained=True)
 
 def resnet34pytorchload():
-    return models.resnet34(pretrained=True)
+    return torchmodels.resnet34(pretrained=True)
 
 def resnet50pytorchload():
-    return models.resnet50(pretrained=True)
+    return torchmodels.resnet50(pretrained=True)
 
 def resnet101pytorchload():
-    return models.resnet101(pretrained=True)
+    return torchmodels.resnet101(pretrained=True)
 
 def resnet152pytorchload():
-    return models.resnet152(pretrained=True)
+    return torchmodels.resnet152(pretrained=True)
 
 def squeezenet10pytorchload():
-    return models.squeezenet1_0(pretrained=True)
+    return torchmodels.squeezenet1_0(pretrained=True)
 
 def squeezenet11pytorchload():
-    return models.squeezenet1_1(pretrained=True)
+    return torchmodels.squeezenet1_1(pretrained=True)
 
 
 ######## METHODS FOR PREPROCESS ########
