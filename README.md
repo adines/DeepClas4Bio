@@ -72,7 +72,7 @@ Using the command line you have to execute the following command in the root fol
     python predict.py -i pathToTheImage - f NameOfTheFramework -m NameOfTheModel
 ````
 
-An example of use of this API could be found in the following Collab Notebook [Using DeepClas4Bio API](https://drive.google.com/open?id=1paYEOVU6SuJiZHbFAJCKzetTZXo28mbY)
+An example of use of this API could be found in the following Collab Notebook [Using DeepClas4Bio API](https://colab.research.google.com/drive/1paYEOVU6SuJiZHbFAJCKzetTZXo28mbY)
 
 ### Web API
 This API could be used from a web API as presented in the server file of this project. In this file you can see
