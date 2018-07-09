@@ -27,8 +27,8 @@ def loadModel(modelName):
             arg_params[name]=v
         elif tp=='aux':
             aux_params[name]=v
-        mod=mx.mod.Module(symbol=symbol,context=mx.cpu(),label_names=None)
-        mod.bind(for_training=False,data_shapes=[('data', (1,3,224,224))], label_shapes=mod.label_shapes)
+        mod=mx.mod.Module(symbol=symbol,context=mx.cpu())
+        mod.bind(for_training=False,data_shapes=[('data', (1,3,224,224))])
         mod.set_params(arg_params,aux_params,allow_missing=True)
     return mod
 

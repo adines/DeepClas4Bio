@@ -1,13 +1,14 @@
 import Predictor
-from collections import namedtuple
 import mxnet as mx
 
 class MxNetPredictor(Predictor.Predictor):
     def predict(self,image):
         preProcessor=self.model.preProcessor
         imageProcessed=preProcessor(image)
-        Batch=namedtuple('Batch',['data'])
+
+        x=mx.io.NDArrayIter(imageProcessed)
+
         deepModel=self.model.deepModel
-        deepModel.forward(Batch([mx.nd.array(imageProcessed)]))
+        y_preds=deepModel.predict(x)
         postProcessor=self.model.postProcessor
-        return postProcessor(deepModel.get_outputs()[0].asnumpy())
+        return postProcessor(y_preds[0].asnumpy())
