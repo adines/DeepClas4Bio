@@ -21,3 +21,12 @@ class DL4JPredictor(Predictor.Predictor):
         args=[path,image,self.model]
         result=self.jarWrapper(*args)
         return result
+
+    def predictBatch(self,images):
+        path = inspect.stack()[0][1]
+        pos = path.rfind(os.sep)
+        path = path[:pos + 1] + 'PredictDL4J.jar'
+
+        args = [path, images, self.model]
+        result = self.jarWrapper(*args)
+        return result

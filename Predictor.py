@@ -7,3 +7,6 @@ class Predictor(IPredictor.IPredictor):
 
     def predict(self,image):
         pass
+
+    def predictBatch(self,images):
+        pass
