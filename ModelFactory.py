@@ -22,6 +22,6 @@ class ModelFactory:
                 postprocess = model + framework + 'postprocess'
                 postprocess = postprocess.lower()
                 postprocessMethod = getattr(importlib.import_module(framework + '.' + framework + 'Functions'), postprocess)
-                m= class__(loadModelMethod,preprocessMethod,postprocessMethod)
+                m= class__(model+framework,loadModelMethod,preprocessMethod,postprocessMethod)
                 self.loadedModels[modelName]=m
                 return m
