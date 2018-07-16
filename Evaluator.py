@@ -19,7 +19,10 @@ class Evaluator:
     def evaluate(self):
         result={}
         for predictor in self.predictors:
-            predictorName=predictor.model.name
+            if hasattr(predictor.model,'name'):
+                predictorName=predictor.model.name
+            else:
+                predictorName='DL4J'+predictor.model
             dataManager=DatasetManager.DatasetManager(self.images, batch=self.batch)
             predictions=[]
             while(dataManager.hasNextBach()):

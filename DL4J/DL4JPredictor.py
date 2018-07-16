@@ -11,22 +11,26 @@ class DL4JPredictor(Predictor.Predictor):
 
         for line in process.stdout:
             result.append(line.decode('utf-8').rstrip('\n').rstrip('\n'))
-        return result[0]
+        return result
 
     def predict(self,image):
         path=inspect.stack()[0][1]
         pos=path.rfind(os.sep)
         path=path[:pos+1]+'PredictDL4J.jar'
 
-        args=[path,image,self.model]
+        args=[path,self.model,image]
         result=self.jarWrapper(*args)
-        return result
+        return result[0]
 
     def predictBatch(self,images):
         path = inspect.stack()[0][1]
         pos = path.rfind(os.sep)
         path = path[:pos + 1] + 'PredictDL4J.jar'
 
-        args = [path, images, self.model]
+        args = [path, self.model]+images
         result = self.jarWrapper(*args)
-        return result
+        newResult=[]
+        for r in result:
+            r=r.replace("[","").replace("]","")
+            newResult.append(list(map(int,map(float,r.split(",")))))
+        return newResult
