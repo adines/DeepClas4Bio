@@ -1,4 +1,4 @@
 
 class IReadDataset:
-    def readDataset(self,path):
+    def readDataset(self,path,pathLabels):
         pass
