@@ -28,6 +28,10 @@ To include new frameworks in the API you have to complete these three steps:
  All of these files must be placed in python package called *Framework*.
 
 ## Including new model in the API
+The API includes some pretrained models for each framework. In the case of Caffe and MxNet to use these models you 
+have to downlaod the corresponding files from [Caffe](Caffe/Caffe%20models.md) and [MxNet](MxNet/MxNet%20models.md) 
+respectively.
+
 To include new models in the API you have to complete these three steps:
 
  1. Save the structure's file in the path *Framework/Classification/model/ModelName* and the weigths' file in 
