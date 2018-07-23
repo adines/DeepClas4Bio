@@ -9,6 +9,13 @@ class Evaluator:
         self.predictors=[]
         self.measures=[]
         self.batch=batch
+        if len(list(set(self.labels))) <2:
+            raise ValueError('Only one class detected. Review your dataset.')
+        elif len(list(set(self.labels))) == 2:
+            self.binary=True
+        else:
+            self.binary=False
+
 
     def addPredictor(self,predictor):
         self.predictors.append(predictor)
@@ -30,8 +37,8 @@ class Evaluator:
                 prediction=predictor.predictBatch(batchImages)
                 predictions+=prediction
             resultMeasure={}
+            # Mirar si las medidas son adecuadas, binarias o no
             for measure in self.measures:
-                # Obtener la medida
                 measureMethod_ = getattr(importlib.import_module('Measures'), measure)
                 r = measureMethod_(predictions, self.labels)
                 resultMeasure[measure]=r

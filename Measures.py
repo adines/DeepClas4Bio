@@ -5,6 +5,9 @@ from sklearn.metrics import jaccard_similarity_score
 from sklearn.metrics import matthews_corrcoef
 from sklearn.metrics import roc_auc_score
 
+binaryMeasures=['accuracy','precision','recall','f1','jaccardIndex','matthewsCorrelation','auroc']
+noBinaryMeasures=['accuracy','rank5']
+
 def accuracy(predictions,trueLabels):
     i=0
     positive=0
