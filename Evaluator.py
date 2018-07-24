@@ -1,6 +1,7 @@
 import DatasetManager
 import importlib
 import json
+import Measures
 
 class Evaluator:
     def __init__(self,readDataset,path,pathLabels,batch=64):
@@ -38,10 +39,15 @@ class Evaluator:
                 predictions+=prediction
             resultMeasure={}
             # Mirar si las medidas son adecuadas, binarias o no
+            if self.binary:
+                allowedMeasures=Measures.binaryMeasures
+            else:
+                allowedMeasures=Measures.noBinaryMeasures
             for measure in self.measures:
-                measureMethod_ = getattr(importlib.import_module('Measures'), measure)
-                r = measureMethod_(predictions, self.labels)
-                resultMeasure[measure]=r
+                if measure in allowedMeasures:
+                    measureMethod_ = getattr(importlib.import_module('Measures'), measure)
+                    r = measureMethod_(predictions, self.labels)
+                    resultMeasure[measure]=r
             result[predictorName]=resultMeasure
         with open('data.json', 'w') as f:
             json.dump(result, f)
