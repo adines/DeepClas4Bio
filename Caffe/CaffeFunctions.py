@@ -13,8 +13,8 @@ def loadModel(modelName):
     path=inspect.stack()[0][1]
     pos=path.rfind(os.sep)
     path=path[:pos+1]
+    print(path)
     pathModel='Classification'+os.sep+'model'+os.sep+modelName+'.prototxt'
-    json_file=open(pathModel,'r')
     pathModel=path+pathModel
     pathWeights='Classification'+os.sep+'weights'+os.sep+modelName+'.caffemodel'
     pathWeights=path+pathWeights

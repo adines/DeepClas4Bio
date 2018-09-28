@@ -9,7 +9,6 @@ def evaluate(config):
         data=json.load(file)
 
 
-    # Crear el readDataset correcto
     readDataset=data['readDataset']
     path = data['pathDataset']
     pathLabels = data['pathLabels']
@@ -17,20 +16,19 @@ def evaluate(config):
     classReadDataset__ = getattr(importlib.import_module(readDataset), readDataset)
     rd=classReadDataset__()
 
-    # Modificar los parámetros del constructor
     evaluator = Evaluator.Evaluator(rd, path,
                                     pathLabels)
 
-    # Añadimos las medidas
+    # Anadimos las medidas
     measures=data['measures']
     for measure in measures:
         evaluator.addMeasure(measure)
 
-    # Añadimos los constructores
+    # Anadimos los constructores
     m = PredictorFactory()
     predictors=data['predictors']
     for predictor in predictors:
-        # Crear los modelos con los nombres de los predictores (framework, model)
+
         model = m.getPredictor(predictor['framework'], predictor['model'])
         evaluator.addPredictor(model)
 
