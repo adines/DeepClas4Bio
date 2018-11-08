@@ -7,21 +7,34 @@ from keras.applications.resnet50 import preprocess_input as resnet50preprocess
 from keras.applications.inception_v3 import preprocess_input as inceptionv3preprocess
 from keras.applications.mobilenet import preprocess_input as mobileNetpreprocess
 from keras.applications.xception import preprocess_input as xceptionpreprocess
+from keras.applications.densenet import preprocess_input as densenetpreprocess
+from keras.applications.inception_resnet_v2 import preprocess_input as inceptionresnetv2preprocess
+from keras.applications.nasnet import preprocess_input as nasnetpreprocess
+
 from keras.applications.vgg16 import decode_predictions as vgg16decode
 from keras.applications.vgg19 import decode_predictions as vgg19decode
 from keras.applications.resnet50 import decode_predictions as resnet50decode
 from keras.applications.inception_v3 import decode_predictions as inceptionv3decode
 from keras.applications.mobilenet import decode_predictions as mobileNetdecode
 from keras.applications.xception import decode_predictions as xceptiondecode
+from keras.applications.densenet import decode_predictions as densenetdecode
+from keras.applications.inception_resnet_v2 import decode_predictions as inceptionresnetv2decode
+from keras.applications.nasnet import decode_predictions as nasnetdecode
+
 from keras.applications.vgg19 import *
 from keras.applications.resnet50 import *
 from keras.applications.inception_v3 import *
+from keras.applications.densenet import *
+from keras.applications.inception_resnet_v2 import *
+from keras.applications.nasnet import *
+from keras.applications.mobilenet import *
+
 import inspect
 import os
 import numpy as np
 
 # Add your model here
-models=['VGG16','VGG19','ResNet','InceptionV3','MobileNet','Xception']
+models=['VGG16','VGG19','ResNet','InceptionV3','MobileNet','Xception','InceptionResNetV2', 'DenseNet', 'NASNet']
 
 
 ######## METHODS FOR LOAD MODELS ########
@@ -42,6 +55,15 @@ def mobilenetkerasload():
 
 def xceptionkerasload():
     return Xception()
+
+def densenetkerasload():
+    return DenseNet()
+
+def inceptionresnetv2kerasload():
+    return InceptionResNetV2()
+
+def nasnetkerasload():
+    return NASNet()
 
 # Generic method to laod models from name
 def loadModel(modelName):
@@ -91,6 +113,18 @@ def xceptionkeraspreprocess(im):
     x=commonPreProcess(im)
     return xceptionpreprocess(x)
 
+def densenetkeraspreprocess(im):
+    x=commonPreProcess(im)
+    return densenetpreprocess(x)
+
+def inceptionresnetv2keraspreprocess(im):
+    x=commonPreProcess(im)
+    return inceptionresnetv2preprocess(x)
+
+def nasnetkeraspreprocess(im):
+    x=commonPreProcess(im)
+    return nasnetpreprocess(x)
+
 
 ######## METHODS FOR POSPROCESS ########
 def vgg16keraspostprocess(result):
@@ -115,4 +149,16 @@ def mobilenetkeraspostprocess(result):
 
 def xceptionkeraspostprocess(result):
     prediction=xceptiondecode(result,top=1)[0]
+    return prediction[0][1]
+
+def densenetkeraspostprocess(result):
+    prediction=densenetdecode(result,top=1)[0]
+    return prediction[0][1]
+
+def inceptionresnetv2keraspostprocess(result):
+    prediction=inceptionresnetv2decode(result,top=1)[0]
+    return prediction[0][1]
+
+def nasnetkeraspostprocess(result):
+    prediction=nasnetdecode(result,top=1)[0]
     return prediction[0][1]
