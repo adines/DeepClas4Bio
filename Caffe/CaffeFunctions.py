@@ -1,6 +1,8 @@
 import inspect
 import os
 import numpy as np
+import sys
+sys.path.append(r'C:\Users\adines\Downloads\caffe\python')
 import caffe
 
 # Add your model here
