@@ -1,12 +1,12 @@
 import inspect
 import os
 import numpy as np
-import sys
-sys.path.append(r'C:\Users\adines\Downloads\caffe\python')
+#import sys
+#sys.path.append(r'C:\Users\adines\Downloads\caffe\python')
 import caffe
 
 # Add your model here
-models=['VGG16','VGG19','AlexNet','CaffeNet','GoogleNet','VGG16Kvasir']
+models=['VGG16','VGG19','AlexNet','CaffeNet','GoogleNet']
 
 ######## METHODS FOR LOAD MODELS ########
 
@@ -15,7 +15,6 @@ def loadModel(modelName):
     path=inspect.stack()[0][1]
     pos=path.rfind(os.sep)
     path=path[:pos+1]
-    print(path)
     pathModel='Classification'+os.sep+'model'+os.sep+modelName+'.prototxt'
     pathModel=path+pathModel
     pathWeights='Classification'+os.sep+'weights'+os.sep+modelName+'.caffemodel'
@@ -43,9 +42,6 @@ def caffenetcaffeload():
 def googlenetcaffeload():
     return loadModel('GoogleNet')
 
-def vgg16kvasircaffeload():
-    return loadModel('VGG16Kvasir')
-
 
 ######## METHODS FOR PREPROCESS ########
 def commonPreProcess(im):
@@ -65,9 +61,6 @@ def caffenetcaffepreprocess(im):
     return commonPreProcess(im)
 
 def googlenetcaffepreprocess(im):
-    return commonPreProcess(im)
-
-def vgg16kvasircaffepreprocess(im):
     return commonPreProcess(im)
 
 
@@ -93,7 +86,3 @@ def caffenetcaffepostprocess(result):
 
 def googlenetcaffepostprocess(result):
     return commonPostProcess(result)
-
-def vgg16kvasircaffepostprocess(result):
-    labels=["dyed-lifted-polyps","dyed-resection-margins","esophagitis","normal-cecum","normal-pylorus","normal-z-line","polyps","ulcerative-colitis"]
-    return labels[result[0].argmax()]

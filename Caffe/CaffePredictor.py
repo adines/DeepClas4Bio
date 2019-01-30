@@ -5,7 +5,7 @@ class CaffePredictor(Predictor.Predictor):
     def predict(self,image):
         preProcessor=self.model.preProcessor
         imageProcessed=preProcessor(image)
-        y_pred=self.model.deepModel.predict(imageProcessed)
+        y_pred=self.model.deepModel.predict([imageProcessed])
         postProcessor=self.model.postProcessor
         return postProcessor(y_pred)
 
@@ -18,8 +18,7 @@ class CaffePredictor(Predictor.Predictor):
         y_pred = self.model.deepModel.predict(data)
         predictions=[]
         for pred in y_pred:
-            x = pred.asnumpy()
-            x = np.squeeze(x)
+            x = np.squeeze(pred)
             x=np.argsort(x)[::-1]
             predictions.append(x)
         return predictions

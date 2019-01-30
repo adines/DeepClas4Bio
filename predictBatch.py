@@ -14,7 +14,7 @@ def predictBatch(images,framework,model,batch=64):
         predictions+=prediction
     results=[]
     for p in predictions:
-        results.append(modelo.postProcess(p))
+        results.append(modelo.model.postProcessor(p))
     return results
 
 parser=argparse.ArgumentParser()
@@ -31,7 +31,7 @@ images=data['images']
 results=predictBatch(images,framework,model)
 
 resultImages=[]
-for (image, result) in (images,results):
+for image, result in zip(images,results):
     object={}
     object['image']=image
     object['class']=result
@@ -39,8 +39,8 @@ for (image, result) in (images,results):
 
 data={}
 data['type']='classification'
-data['framework']=args["framework"]
-data['model']=args["model"]
+data['framework']=framework
+data['model']=model
 data['results']=resultImages
 with open('data.json','w') as f:
     json.dump(data,f)
