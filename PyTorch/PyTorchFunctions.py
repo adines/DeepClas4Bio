@@ -10,7 +10,7 @@ import torchvision.models as torchmodels
 
 # Add your model here
 models=['VGG11','VGG13','VGG16','VGG19','AlexNet','DenseNet121','DenseNet161','DenseNet169','DenseNet201','InceptionV3',
-        'ResNet18','ResNet34','ResNet50','ResNet101','ResNet152','SqueezeNet10','SqueezeNet11']
+        'ResNet18','ResNet34','ResNet50','ResNet101','ResNet152','SqueezeNet10','SqueezeNet11','ResNet34Kvasir']
 
 
 
@@ -32,7 +32,9 @@ def loadModel(modelName):
 
     pathWeights ='Classification' + os.sep + 'weights' + os.sep + modelName + '.pth'
     pathWeights=path+pathWeights
-    modelo.load_state_dict(torch.load(pathWeights))
+    state=torch.load(pathWeights,torch.device('cpu'))
+    modelo.load_state_dict(state_dict=state, strict=False)
+    modelo=modelo.eval()
     return modelo
 
 
@@ -87,6 +89,9 @@ def squeezenet10pytorchload():
 def squeezenet11pytorchload():
     return torchmodels.squeezenet1_1(pretrained=True)
 
+def resnet34kvasirpytorchload():
+    return loadModel('ResNet34Kvasir')
+
 
 ######## METHODS FOR PREPROCESS ########
 def commonPreProcess(im):
@@ -101,6 +106,12 @@ def commonPreProcess(im):
     return img_var
 
 
+def vgg11pytorchpreprocess(im):
+    return commonPreProcess(im)
+
+def vgg13pytorchpreprocess(im):
+    return commonPreProcess(im)
+
 def vgg16pytorchpreprocess(im):
     return commonPreProcess(im)
 
@@ -109,27 +120,46 @@ def vgg19pytorchpreprocess(im):
     return commonPreProcess(im)
 
 
-def caffenetpytorchpreprocess(im):
+def alexnetpytorchpreprocess(im):
     return commonPreProcess(im)
 
+def densenet121pytorchpreprocess(im):
+    return commonPreProcess(im)
+
+def densenet161pytorchpreprocess(im):
+    return commonPreProcess(im)
+
+def densenet169pytorchpreprocess(im):
+    return commonPreProcess(im)
+
+def densenet201pytorchpreprocess(im):
+    return commonPreProcess(im)
 
 def inceptionv3pytorchpreprocess(im):
     return commonPreProcess(im)
 
-
-def ninpytorchpreprocess(im):
+def resnet18pytorchpreprocess(im):
     return commonPreProcess(im)
 
-
-def residualnet152pytorchpreprocess(im):
+def resnet34pytorchpreprocess(im):
     return commonPreProcess(im)
 
+def resnet50pytorchpreprocess(im):
+    return commonPreProcess(im)
 
 def resnet101pytorchpreprocess(im):
     return commonPreProcess(im)
 
+def resnet152pytorchpreprocess(im):
+    return commonPreProcess(im)
 
-def squeezenetpytorchpreprocess(im):
+def squeezenet10pytorchpreprocess(im):
+    return commonPreProcess(im)
+
+def squeezenet11pytorchpreprocess(im):
+    return commonPreProcess(im)
+
+def resnet34kvasirpytorchpreprocess(im):
     return commonPreProcess(im)
 
 
@@ -192,3 +222,7 @@ def squeezenet10pytorchpostprocess(result):
 
 def squeezenet11pytorchpostprocess(result):
     return commonPostProcess(result)
+
+def resnet34kvasirpytorchpostprocess(result):
+    labels=["dyed-lifted-polyps","normal-z-line","normal-cecum","normal-pylorus","dyed-resection-margins","ulcerative-colitis","polyps","esophagitis"]
+    return labels[result.data.numpy().argmax()]

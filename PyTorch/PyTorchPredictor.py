@@ -17,7 +17,5 @@ class PyTorchPredictor(Predictor.Predictor):
         for image in images:
             imageProcessed = preProcessor(image)
             y_preds = deepModel(imageProcessed)
-            x=y_preds.data.numpy()
-            x=np.argsort(x)[::-1]
-            predictions.append(x)
+            predictions.append(y_preds)
         return predictions

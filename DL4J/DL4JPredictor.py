@@ -33,4 +33,5 @@ class DL4JPredictor(Predictor.Predictor):
         for r in result:
             r=r.replace("[","").replace("]","")
             newResult.append(list(map(int,map(float,r.split(",")))))
+        print(newResult)
         return newResult

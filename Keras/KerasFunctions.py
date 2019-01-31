@@ -128,6 +128,7 @@ def nasnetkeraspreprocess(im):
 
 ######## METHODS FOR POSPROCESS ########
 def vgg16keraspostprocess(result):
+    print(result)
     prediction=vgg16decode(result,top=1)[0]
     return prediction[0][1]
 

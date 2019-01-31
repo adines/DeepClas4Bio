@@ -19,6 +19,5 @@ class KerasPredictor(Predictor.Predictor):
         y_pred = self.model.deepModel.predict(dataStack)
         predictions=[]
         for pred in y_pred:
-            x=np.argsort(pred)[::-1]
-            predictions.append(x)
+            predictions.append(np.expand_dims(pred,axis=0))
         return predictions
