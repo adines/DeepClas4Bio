@@ -6,11 +6,9 @@ class MxNetPredictor(Predictor.Predictor):
     def predict(self,image):
         preProcessor=self.model.preProcessor
         imageProcessed=preProcessor(image)
-
-        x=mx.io.NDArrayIter(imageProcessed)
-
         deepModel=self.model.deepModel
-        y_preds=deepModel.predict(x)
+        imageProcessed=mx.ndarray.expand_dims(imageProcessed, axis=0)
+        y_preds=deepModel(imageProcessed)
         postProcessor=self.model.postProcessor
         return postProcessor(y_preds[0].asnumpy())
 
@@ -20,9 +18,8 @@ class MxNetPredictor(Predictor.Predictor):
         for image in images:
             imageProcessed = preProcessor(image)
             data.append(imageProcessed)
-        dataStack=np.vstack(data)
-        dataMx = mx.io.NDArrayIter(dataStack)
-        y_pred = self.model.deepModel.predict(dataMx)
+        dataStack=mx.nd.stack(*data,axis=0)
+        y_pred = self.model.deepModel(dataStack)
         predictions=[]
         for pred in y_pred:
             x = pred.asnumpy()

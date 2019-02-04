@@ -3,6 +3,8 @@ import os
 import numpy as np
 import mxnet as mx
 from PIL import Image
+from mxnet import gluon,nd
+from mxnet.gluon.model_zoo import vision
 
 # Add your model here
 models=['VGG16','VGG19','CaffeNet','InceptionV3','NiN', 'ResidualNet152', 'ResNet101', 'SqueezeNet']
@@ -16,24 +18,18 @@ def loadModel(modelName):
     path=inspect.stack()[0][1]
     pos=path.rfind(os.sep)
     pathModel=path[:pos+1]+'Classification'+os.sep+'model'+os.sep+modelName+'.json'
-    symbol=mx.sym.load(pathModel)
     pathWeights=path[:pos+1]+'Classification'+os.sep+'weights'+os.sep+modelName+'.params'
-    save_dict=mx.nd.load(pathWeights)
-    arg_params={}
-    aux_params={}
-    for k, v in save_dict.items():
-        tp, name=k.split(':',1)
-        if tp=='arg':
-            arg_params[name]=v
-        elif tp=='aux':
-            aux_params[name]=v
-        mod=mx.mod.Module(symbol=symbol,context=mx.cpu())
-        mod.bind(for_training=False,data_shapes=[('data', (1,3,224,224))])
-        mod.set_params(arg_params,aux_params,allow_missing=True)
-    return mod
+
+
+    ctx = mx.gpu() if mx.test_utils.list_gpus() else mx.cpu()
+    deserialized_net=gluon.nn.SymbolBlock.imports(pathModel, ['data'], pathWeights, ctx=ctx)
+
+    return deserialized_net
 
 def vgg16mxnetload():
-    return loadModel('VGG16')
+    net= vision.vgg16(pretrained=True)
+    net.hybridize()
+    return net
 
 def vgg19mxnetload():
     return loadModel('VGG19')
@@ -59,13 +55,35 @@ def squeezenetmxnetload():
 
 ######## METHODS FOR PREPROCESS ########
 def commonPreProcess(im):
-    img=Image.open(im)
-    img=img.resize((224,224),Image.NEAREST)
-    img_arr=np.array(img.getdata()).astype(np.float32).reshape((img.size[0],img.size[1],3))
-    img_arr=np.swapaxes(img_arr,0,2)
-    img_arr=np.swapaxes(img_arr,1,2)
-    img_arr=img_arr[np.newaxis,:]
-    return img_arr
+
+    img=mx.image.image.imread(im)
+    img=mx.image.image.imresize(img,224,224)
+    # im=mx.image.image.imdecode(img)
+    # print(img)
+    # img=img.resize((224,224),Image.NEAREST)
+    # image=img/255
+    # img_arr=np.ndarray(img)
+    # image=img_arr
+    # print(image)
+
+    # image =nd.transpose(im, (2,0,1))/255
+    # image = mx.image.color_normalize(img,
+    #                                   mean=mx.nd.array([0.485, 0.456, 0.406]),
+    #                                   std=mx.nd.array([0.229, 0.224, 0.225]))
+
+    img=mx.ndarray.swapaxes(img,0,2)
+
+    img=mx.ndarray.cast(img, dtype='float32')
+    return img
+
+    # img=Image.open(im)
+    # img=img.resize((224,224),Image.NEAREST)
+    # img_arr=np.array(img.getdata()).astype(np.float32).reshape((img.size[0],img.size[1],3))
+    # img_arr=np.swapaxes(img_arr,0,2)
+    # img_arr=np.swapaxes(img_arr,1,2)
+    # img_arr=img_arr[np.newaxis,:]
+    #
+    # return img_arr
 
 def vgg16mxnetpreprocess(im):
     return commonPreProcess(im)
