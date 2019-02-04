@@ -36,16 +36,17 @@ def commonPostProcess(result):
     pos = path.rfind(os.sep)
     path = path[:pos + 1]
     labels = np.loadtxt(path + "synset_words.txt", str, delimiter='\n')
-    return labels[result[0].argmax()]
+    result=np.asarray(result)
+    return labels[result.argmax()]
 
-def vgg16dl4jpostprocess(im):
-    return commonPostProcess(im)
+def vgg16dl4jpostprocess(result):
+    return commonPostProcess(result)
 
-def vgg19dl4jpostprocess(im):
-    return commonPostProcess(im)
+def vgg19dl4jpostprocess(result):
+    return commonPostProcess(result)
 
-def resnet50dl4jpostprocess(im):
-    return commonPostProcess(im)
+def resnet50dl4jpostprocess(result):
+    return commonPostProcess(result)
 
-def googlenetdl4jpostprocess(im):
-    return commonPostProcess(im)
+def googlenetdl4jpostprocess(result):
+    return commonPostProcess(result)

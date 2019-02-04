@@ -28,13 +28,9 @@ class DL4JPredictor(Predictor.Predictor):
         path = path[:pos + 1] + 'PredictDL4J.jar'
 
         args = [path, self.model.name[:-4]]+images
-        print(images)
         result = self.jarWrapper(*args)
-        print(result)
         newResult=[]
         for r in result:
             r=r.replace("[","").replace("]","")
-            print(r)
-            # newResult.append(list(map(int,map(float,r.split(",")))))
-        print(newResult)
+            newResult.append(list(map(int,map(float,r.split(",")))))
         return newResult
