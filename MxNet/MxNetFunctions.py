@@ -58,32 +58,10 @@ def commonPreProcess(im):
 
     img=mx.image.image.imread(im)
     img=mx.image.image.imresize(img,224,224)
-    # im=mx.image.image.imdecode(img)
-    # print(img)
-    # img=img.resize((224,224),Image.NEAREST)
-    # image=img/255
-    # img_arr=np.ndarray(img)
-    # image=img_arr
-    # print(image)
-
-    # image =nd.transpose(im, (2,0,1))/255
-    # image = mx.image.color_normalize(img,
-    #                                   mean=mx.nd.array([0.485, 0.456, 0.406]),
-    #                                   std=mx.nd.array([0.229, 0.224, 0.225]))
-
     img=mx.ndarray.swapaxes(img,0,2)
 
     img=mx.ndarray.cast(img, dtype='float32')
     return img
-
-    # img=Image.open(im)
-    # img=img.resize((224,224),Image.NEAREST)
-    # img_arr=np.array(img.getdata()).astype(np.float32).reshape((img.size[0],img.size[1],3))
-    # img_arr=np.swapaxes(img_arr,0,2)
-    # img_arr=np.swapaxes(img_arr,1,2)
-    # img_arr=img_arr[np.newaxis,:]
-    #
-    # return img_arr
 
 def vgg16mxnetpreprocess(im):
     return commonPreProcess(im)

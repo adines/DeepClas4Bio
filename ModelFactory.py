@@ -8,7 +8,7 @@ class ModelFactory:
         if m is not None:
             return m
         else:
-            if framework=='DL4J':
+            if framework=='DL4Jg':
                 return model
             else:
                 class_name=framework+'Model'
