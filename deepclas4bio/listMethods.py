@@ -28,3 +28,7 @@ def listMeasures():
     bm= Measures.binaryMeasures
     nbm= Measures.noBinaryMeasures
     return list(set().union(bm,nbm))
+
+readDatasets=[{'name':'ReadDatasetFolders','description':'The images have to be organized in folders. Each folder must have the name of the class which the images belong.'}]
+def listReadDatasets():
+    return readDatasets

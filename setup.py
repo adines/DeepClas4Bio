@@ -33,7 +33,7 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.22',  # Required
+    version='0.0.26',  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
@@ -110,7 +110,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['torchvision','keras==2.1.6','torch==0.4.1','mxnet==1.2.1','numpy','Pillow','scikit_learn'],  # Optional
+    install_requires=['torchvision','keras==2.1.6','torch','mxnet==1.2.1','numpy','Pillow','scikit_learn'],  # Optional
 
     # dependency_links=[]
 
@@ -156,6 +156,7 @@ setup(
             'deepclas4bio-listFrameworks=deepclas4bio.commandLine:listFrameworks',
             'deepclas4bio-listModels=deepclas4bio.commandLine:listModels',
             'deepclas4bio-listMeasures=deepclas4bio.commandLine:listMeasures',
+            'deepclas4bio-listReadDatasets=deepclas4bio.commandLine:listReadDatasets',
             'deepclas4bio-evaluate=deepclas4bio.commandLine:evaluate',
         ],
     },

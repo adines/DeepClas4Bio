@@ -6,6 +6,7 @@ from deepclas4bio.listMethods import listFrameworks as lsFrameworks
 from deepclas4bio.listMethods import listModels as lsModels
 from deepclas4bio.listMethods import listMeasures as lsMeasures
 from deepclas4bio.evaluate import evaluate as ev
+from deepclas4bio.listMethods import listReadDatasets as lsDataset
 
 def predict():
 
@@ -92,4 +93,11 @@ def evaluate():
     result=ev(readDataset,path,pathLabels,measures,predictors)
     with open('data.json', 'w') as f:
         json.dump(result, f)
+
+def listReadDatasets():
+    data = {}
+    data['type'] = 'readDatasets'
+    data['readDatasets'] = lsDataset()
+    with open('data.json', 'w') as f:
+        json.dump(data, f)
 

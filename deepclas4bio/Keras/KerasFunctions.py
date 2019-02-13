@@ -35,7 +35,7 @@ from pathlib import Path
 import requests
 
 # Add your model here
-models=['VGG16','VGG19','ResNet','InceptionV3','MobileNet','Xception','InceptionResNetV2', 'DenseNet', 'NASNet']
+models=['VGG16','VGG19','ResNet','InceptionV3','MobileNet','Xception','InceptionResNetV2', 'DenseNet', 'NASNet','ResNetISIC']
 
 
 ######## METHODS FOR LOAD MODELS ########
@@ -140,6 +140,9 @@ def nasnetkeraspreprocess(im):
     x=commonPreProcess(im)
     return nasnetpreprocess(x)
 
+def resnetisickeraspreprocess(im):
+    return commonPreProcess(im)
+
 
 ######## METHODS FOR POSPROCESS ########
 def vgg16keraspostprocess(result):
@@ -177,3 +180,8 @@ def inceptionresnetv2keraspostprocess(result):
 def nasnetkeraspostprocess(result):
     prediction=nasnetdecode(result,top=1)[0]
     return prediction[0][1]
+
+def resnetisickeraspostprocess(result):
+    max = np.argmax(result)
+    labels = ["MSK-1", "MSK-2", "MSK-3", "MSK-4", "MSK-5", "SONIC", "UDA-1"]
+    return labels[max]
