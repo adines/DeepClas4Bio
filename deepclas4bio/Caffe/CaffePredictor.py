@@ -18,7 +18,5 @@ class CaffePredictor(Predictor.Predictor):
         y_pred = self.model.deepModel.predict(data)
         predictions=[]
         for pred in y_pred:
-            x = np.squeeze(pred)
-            x=np.argsort(x)[::-1]
-            predictions.append(x)
+            predictions.append(pred)
         return predictions

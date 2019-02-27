@@ -7,6 +7,7 @@ class PyTorchPredictor(Predictor.Predictor):
         imageProcessed=preProcessor(image)
         deepModel=self.model.deepModel
         y_preds=deepModel(imageProcessed)
+        y_preds=y_preds.data.numpy()
         postProcessor=self.model.postProcessor
         return postProcessor(y_preds)
 
@@ -17,5 +18,6 @@ class PyTorchPredictor(Predictor.Predictor):
         for image in images:
             imageProcessed = preProcessor(image)
             y_preds = deepModel(imageProcessed)
+            y_preds=y_preds.data.numpy()
             predictions.append(y_preds)
         return predictions

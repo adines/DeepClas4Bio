@@ -37,55 +37,71 @@ def loadModel(modelName):
 
 
 def vgg11pytorchload():
-    return torchmodels.vgg11(pretrained=True)
+    model= torchmodels.vgg11(pretrained=True)
+    return model.eval()
 
 def vgg13pytorchload():
-    return torchmodels.vgg13(pretrained=True)
+    model= torchmodels.vgg13(pretrained=True)
+    return model.eval()
 
 def vgg16pytorchload():
-    return torchmodels.vgg16(pretrained=True)
+    model= torchmodels.vgg16(pretrained=True)
+    return model.eval()
 
 def vgg19pytorchload():
     return torchmodels.vgg19(pretrained=True)
 
 def alexnetpytorchload():
-    return torchmodels.alexnet(pretrained=True)
+    model= torchmodels.alexnet(pretrained=True)
+    return model.eval()
 
 def densenet121pytorchload():
-    return torchmodels.densenet121(pretrained=True)
+    model= torchmodels.densenet121(pretrained=True)
+    return model.eval()
 
 def densenet161pytorchload():
-    return torchmodels.densenet161(pretrained=True)
+    model= torchmodels.densenet161(pretrained=True)
+    return model.eval()
 
 def densenet169pytorchload():
-    return torchmodels.densenet169(pretrained=True)
+    model= torchmodels.densenet169(pretrained=True)
+    return model.eval()
 
 def densenet201pytorchload():
-    return torchmodels.densenet201(pretrained=True)
+    model= torchmodels.densenet201(pretrained=True)
+    return model.eval()
 
 def inceptionv3pytorchload():
-    return torchmodels.inception_v3(pretrained=True)
+    model= torchmodels.inception_v3(pretrained=True)
+    return model.eval()
 
 def resnet18pytorchload():
-    return torchmodels.resnet18(pretrained=True)
+    model= torchmodels.resnet18(pretrained=True)
+    return model.eval()
 
 def resnet34pytorchload():
-    return torchmodels.resnet34(pretrained=True)
+    model= torchmodels.resnet34(pretrained=True)
+    return model.eval()
 
 def resnet50pytorchload():
-    return torchmodels.resnet50(pretrained=True)
+    model= torchmodels.resnet50(pretrained=True)
+    return model.eval()
 
 def resnet101pytorchload():
-    return torchmodels.resnet101(pretrained=True)
+    model= torchmodels.resnet101(pretrained=True)
+    return model.eval()
 
 def resnet152pytorchload():
-    return torchmodels.resnet152(pretrained=True)
+    model= torchmodels.resnet152(pretrained=True)
+    return model.eval()
 
 def squeezenet10pytorchload():
-    return torchmodels.squeezenet1_0(pretrained=True)
+    model= torchmodels.squeezenet1_0(pretrained=True)
+    return model.eval()
 
 def squeezenet11pytorchload():
-    return torchmodels.squeezenet1_1(pretrained=True)
+    model= torchmodels.squeezenet1_1(pretrained=True)
+    return model.eval()
 
 def resnet34kvasirpytorchload():
     pathModel = str(
@@ -191,7 +207,7 @@ def commonPostProcess(result):
         with open(path + os.sep + 'synset_words.txt', 'wb') as f:
             f.write(r.content)
     labels = np.loadtxt(path + os.sep+"synset_words.txt", str, delimiter='\n')
-    return labels[result.data.numpy().argmax()]
+    return labels[result.argmax()]
 
 
 def vgg11pytorchpostprocess(result):
@@ -247,4 +263,4 @@ def squeezenet11pytorchpostprocess(result):
 
 def resnet34kvasirpytorchpostprocess(result):
     labels=["dyed-lifted-polyps","normal-z-line","normal-cecum","normal-pylorus","dyed-resection-margins","ulcerative-colitis","polyps","esophagitis"]
-    return labels[result.data.numpy().argmax()]
+    return labels[result.argmax()]

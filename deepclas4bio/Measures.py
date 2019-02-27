@@ -4,23 +4,32 @@ from sklearn.metrics import f1_score
 from sklearn.metrics import jaccard_similarity_score
 from sklearn.metrics import matthews_corrcoef
 from sklearn.metrics import roc_auc_score
+import numpy as np
 
 binaryMeasures=['accuracy','precision','recall','f1','jaccardIndex','matthewsCorrelation','auroc']
 noBinaryMeasures=['accuracy','rank5']
 
-def accuracy(predictions,trueLabels):
+def accuracy(predictions,trueLabels,sort=True):
     i=0
     positive=0
+
     for prediction in predictions:
+        prediction = np.squeeze(prediction)
+        if sort:
+            prediction = np.argsort(prediction)[::-1]
         if prediction[0]==trueLabels[i]:
             positive+=1
         i+=1
     return positive/i
 
-def rank5(predictions,trueLabels):
+def rank5(predictions,trueLabels,sort=True):
     i = 0
     positive = 0
+
     for prediction in predictions:
+        prediction = np.squeeze(prediction)
+        if sort:
+            prediction = np.argsort(prediction)[::-1]
         if trueLabels[i] in prediction[:5]:
             positive+=1
         i+=1

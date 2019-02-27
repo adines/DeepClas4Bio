@@ -26,10 +26,7 @@ class Evaluator:
     def evaluate(self):
         result={}
         for predictor in self.predictors:
-            if hasattr(predictor.model,'name'):
-                predictorName=predictor.model.name
-            else:
-                predictorName='DL4J'+predictor.model
+            predictorName=predictor.model.name
             dataManager= DatasetManager.DatasetManager(self.images, batch=self.batch)
             predictions=[]
             while(dataManager.hasNextBach()):
@@ -45,7 +42,10 @@ class Evaluator:
             for measure in self.measures:
                 if measure in allowedMeasures:
                     measureMethod_ = getattr(importlib.import_module('deepclas4bio.'+'Measures'), measure)
-                    r = measureMethod_(predictions, self.labels)
+                    if predictorName.endswith('DL4J'):
+                        r = measureMethod_(predictions, self.labels,False)
+                    else:
+                        r = measureMethod_(predictions, self.labels)
                     resultMeasure[measure]=r
             result[predictorName]=resultMeasure
         return result

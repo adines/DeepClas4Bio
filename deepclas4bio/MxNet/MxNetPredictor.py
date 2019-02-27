@@ -23,7 +23,5 @@ class MxNetPredictor(Predictor.Predictor):
         predictions=[]
         for pred in y_pred:
             x = pred.asnumpy()
-            x = np.squeeze(x)
-            x=np.argsort(x)[::-1]
             predictions.append(x)
         return predictions

@@ -5,6 +5,7 @@ from mxnet import gluon,nd
 from mxnet.gluon.model_zoo import vision
 from pathlib import Path
 import requests
+import skimage.io as io
 
 # Add your model here
 models=['VGG11','VGG13','VGG16','VGG19','DenseNet121','DenseNet161','DenseNet169','DenseNet201','InceptionV3','AlexNet',
@@ -118,12 +119,13 @@ def mobilenetmxnetload():
 
 ######## METHODS FOR PREPROCESS ########
 def commonPreProcess(im):
-
-    img=mx.image.image.imread(im)
-    img=mx.image.image.imresize(img,224,224)
-    img=mx.ndarray.swapaxes(img,0,2)
-
-    img=mx.ndarray.cast(img, dtype='float32')
+    img=mx.nd.array(io.imread(im)).astype(np.uint8)
+    img=mx.image.resize_short(img,256)
+    img,_=mx.image.center_crop(img,(224,224))
+    img=mx.image.color_normalize(img.astype(np.float32)/255,
+                                 mean=mx.nd.array([0.485,0.456,0.406]),
+                                 std=mx.nd.array([0.229,0.224,0.225]))
+    img=mx.nd.transpose(img.astype('float32'),(2,1,0))
     return img
 
 def vgg11mxnetpreprocess(im):
