@@ -262,5 +262,6 @@ def squeezenet11pytorchpostprocess(result):
     return commonPostProcess(result)
 
 def resnet34kvasirpytorchpostprocess(result):
-    labels=["dyed-lifted-polyps","normal-z-line","normal-cecum","normal-pylorus","dyed-resection-margins","ulcerative-colitis","polyps","esophagitis"]
+    labels = ['dyed-lifted-polyps', 'dyed-resection-margins', 'esophagitis', 'normal-cecum', 'normal-pylorus',
+              'normal-z-line', 'polyps', 'ulcerative-colitis']
     return labels[result.argmax()]

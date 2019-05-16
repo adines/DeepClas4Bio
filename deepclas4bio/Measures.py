@@ -12,7 +12,6 @@ noBinaryMeasures=['accuracy','rank5']
 def accuracy(predictions,trueLabels,sort=True):
     i=0
     positive=0
-
     for prediction in predictions:
         prediction = np.squeeze(prediction)
         if sort:

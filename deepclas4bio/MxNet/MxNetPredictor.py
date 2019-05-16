@@ -15,7 +15,9 @@ class MxNetPredictor(Predictor.Predictor):
     def predictBatch(self,images):
         preProcessor = self.model.preProcessor
         data=[]
+        i=0
         for image in images:
+            i+=1
             imageProcessed = preProcessor(image)
             data.append(imageProcessed)
         dataStack=mx.nd.stack(*data,axis=0)

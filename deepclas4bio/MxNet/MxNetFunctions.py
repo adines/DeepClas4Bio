@@ -9,7 +9,7 @@ import skimage.io as io
 
 # Add your model here
 models=['VGG11','VGG13','VGG16','VGG19','DenseNet121','DenseNet161','DenseNet169','DenseNet201','InceptionV3','AlexNet',
-        'ResNet18','ResNet34','ResNet50','ResNet101','SqueezeNet','MobileNet']
+        'ResNet18','ResNet34','ResNet50','ResNet101','SqueezeNet','MobileNet','ResNet34Kvasir']
 
 
 
@@ -115,6 +115,11 @@ def mobilenetmxnetload():
     return net
 
 
+def resnet34kvasirmxnetload():
+    net=loadModel('ResNet34Kvasir')
+    net.hybridize()
+    return net
+
 
 
 ######## METHODS FOR PREPROCESS ########
@@ -178,6 +183,17 @@ def squeezenetmxnetpreprocess(im):
 
 def mobilenetmxnetpreprocess(im):
     return commonPreProcess(im)
+
+def resnet34kvasirmxnetpreprocess(im):
+    img = mx.nd.array(io.imread(im)).astype(np.uint8)
+    img=mx.image.resize_short(img,227)
+    img,_=mx.image.center_crop(img,(227,227))
+    #     mg=mx.image.color_normalize(img.astype(np.float32)/255,
+    #                                  mean=mx.nd.array([0.485,0.456,0.406]),
+    #                                  std=mx.nd.array([0.229,0.224,0.225]))
+    img = mx.nd.transpose(img.astype('float32'), (2, 1, 0))
+    # img = mx.nd.expand_dims(img, axis=0)
+    return img
 
 ######## METHODS FOR POSPROCESS ########
 def commonPostProcess(result):
@@ -245,3 +261,10 @@ def squeezenetmxnetpostprocess(result):
 
 def mobilenetmxnetpostprocess(result):
     return commonPostProcess(result)
+
+def resnet34kvasirmxnetpostprocess(result):
+    result=np.squeeze(result)
+    # result=result.asnumpy()
+    result=np.ndarray.argsort(result)[::-1]
+    labels=['dyed-lifted-polyps', 'dyed-resection-margins', 'esophagitis', 'normal-cecum', 'normal-pylorus', 'normal-z-line', 'polyps', 'ulcerative-colitis']
+    return labels[result[0]]
