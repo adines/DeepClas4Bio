@@ -5,7 +5,7 @@ class FastaiPredictor(Predictor.Predictor):
         preProcessor=self.model.preProcessor
         imageProcessed=preProcessor(image)
         pred_class, pred_idx, outputs=self.model.deepModel.predict(imageProcessed)
-        return pred_class
+        return pred_class.obj
 
     def predictBatch(self,images):
         preProcessor = self.model.preProcessor
