@@ -110,7 +110,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['tensorflow','torchvision','keras==2.1.6','torch','mxnet==1.5','numpy','Pillow','scikit_learn','fastai'],  # Optional
+    install_requires=['tensorflow','torchvision','keras==2.1.6','torch','mxnet==1.9.1','numpy','Pillow','scikit_learn','fastai'],  # Optional
 
     # dependency_links=[]
 
